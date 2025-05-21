@@ -1,36 +1,36 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthProvider';
 import { Link } from 'react-router';
+// import { useContext } from 'react';
+// import { AuthContext } from '../context/AuthProvider';
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  // const { user, logout } = useContext(AuthContext);
 
-  const handleLogout = () => {
-    logout().then(() => {
-      // optional toast
-    });
-  };
+  // const handleLogout = () => {
+  //   logout().then(() => {
+  //     // optional toast
+  //   });
+  // };
 
-  const navItems = (
-    <>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/groups">All Groups</Link>
-      </li>
-      {user && (
-        <li>
-          <Link to="/createGroup">Create Group</Link>
-        </li>
-      )}
-      {user && (
-        <li>
-          <Link to="/myGroups">My Groups</Link>
-        </li>
-      )}
-    </>
-  );
+  // const navItems = (
+  //   <>
+  //     <li>
+  //       <Link to="/">Home</Link>
+  //     </li>
+  //     <li>
+  //       <Link to="/groups">All Groups</Link>
+  //     </li>
+  //     {user && (
+  //       <li>
+  //         <Link to="/createGroup">Create Group</Link>
+  //       </li>
+  //     )}
+  //     {user && (
+  //       <li>
+  //         <Link to="/myGroups">My Groups</Link>
+  //       </li>
+  //     )}
+  //   </>
+  // );
 
   return (
     <div className="navbar bg-base-100 shadow-md">
@@ -39,7 +39,14 @@ const Navbar = () => {
           HobbyHub
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
+
+      <div className="flex gap-3">
+        <li>Home</li>
+        <li> category</li>
+        <li> product</li>
+        <li>contact</li>
+      </div>
+      {/* <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
@@ -60,7 +67,7 @@ const Navbar = () => {
             Login
           </Link>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
