@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Clean Water Project",
+    "description": "Helping rural communities get access to clean drinking water.",
+    "image": "https://i.ibb.co/album/cleanwater.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Tree Planting Drive",
+    "description": "Join us in planting 10,000 trees this year.",
+    "image": "https://i.ibb.co/album/trees.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Child Education Fund",
+    "description": "Support underprivileged children with books & education.",
+    "image": "https://i.ibb.co/album/education.jpg"
+  }
+]
