@@ -4,7 +4,7 @@ const FeaturedGroups = () => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    fetch('/groups.json') // Make sure you have a `public/groups.json` or use real API later
+    fetch('/groups.json')
       .then(res => res.json())
       .then(data => setGroups(data.slice(0, 3)));
   }, []);
