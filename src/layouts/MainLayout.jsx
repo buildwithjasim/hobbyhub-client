@@ -1,5 +1,15 @@
-import React from 'react';
+import { Outlet } from 'react-router';
+import Navbar from '../components/Navbar';
 
-export default function MainLayout() {
-  return <div>MainLayout</div>;
-}
+const MainLayout = () => {
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-[calc(100vh-200px)]">
+        <Outlet />
+      </main>
+    </>
+  );
+};
+
+export default MainLayout;
