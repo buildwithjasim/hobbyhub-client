@@ -7,6 +7,7 @@ import AllGroups from '../pages/AllGroups';
 import CreateGroup from '../pages/CreateGroup';
 import GroupDetails from '../pages/GroupDetails';
 import MyGroups from '../pages/MyGroups';
+import UpdateGroup from '../pages/UpdateGroup';
 
 const router = createBrowserRouter([
   {
@@ -41,14 +42,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: '/updateGroup/:id',
-      //   element: (
-      //     <PrivateRoute>
-      //       <UpdateGroup />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: '/updateGroup/:id',
+        element: (
+          <PrivateRoute>
+            <UpdateGroup />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
