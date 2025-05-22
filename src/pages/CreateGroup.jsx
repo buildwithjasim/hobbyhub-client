@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../providers/AuthProvider';
+import { AuthContext } from '../context/AuthProvider';
 import Swal from 'sweetalert2';
 
 const CreateGroup = () => {

@@ -5,7 +5,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import AllGroups from '../pages/AllGroups';
 import CreateGroup from '../pages/CreateGroup';
-// import CreateGroup from '../pages/CreateGroup';
+import GroupDetails from '../pages/GroupDetails';
+import MyGroups from '../pages/MyGroups';
 
 const router = createBrowserRouter([
   {
@@ -16,14 +17,14 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
       { path: '/groups', element: <AllGroups /> },
-      // {
-      //   path: '/group/:id',
-      //   element: (
-      //     <PrivateRoute>
-      //       <GroupDetails />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: '/group/:id',
+        element: (
+          <PrivateRoute>
+            <GroupDetails />
+          </PrivateRoute>
+        ),
+      },
       {
         path: '/createGroup',
         element: (
@@ -32,14 +33,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: '/myGroups',
-      //   element: (
-      //     <PrivateRoute>
-      //       <MyGroups />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: '/myGroups',
+        element: (
+          <PrivateRoute>
+            <MyGroups />
+          </PrivateRoute>
+        ),
+      },
       // {
       //   path: '/updateGroup/:id',
       //   element: (

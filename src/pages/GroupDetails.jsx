@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../providers/AuthProvider';
+import { AuthContext } from '../context/AuthProvider';
 import Swal from 'sweetalert2';
 
 const GroupDetails = () => {
