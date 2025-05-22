@@ -26,12 +26,11 @@ const router = createBrowserRouter([
       // },
       {
         path: '/createGroup',
-        Component: CreateGroup,
-        // element: (
-        //   <PrivateRoute>
-        //     <CreateGroup />
-        //   </PrivateRoute>
-        // ),
+        element: (
+          <PrivateRoute>
+            <CreateGroup />
+          </PrivateRoute>
+        ),
       },
       // {
       //   path: '/myGroups',
