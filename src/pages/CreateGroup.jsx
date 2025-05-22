@@ -1,6 +1,47 @@
-import React from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
-export default function CreateGroup() {
+const CreateGroup = () => {
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
+  const handleCreateGroup = async e => {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.target;
+    const newGroup = {
+      groupName: form.groupName.value,
+      category: form.category.value,
+      description: form.description.value,
+      location: form.location.value,
+      maxMembers: parseInt(form.maxMembers.value),
+      startDate: form.startDate.value,
+      imageUrl: form.imageUrl.value,
+      userName: user.displayName,
+      userEmail: user.email,
+    };
+
+    try {
+      const res = await fetch('http://localhost:5000/groups', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newGroup),
+      });
+      const data = await res.json();
+
+      if (data.insertedId) {
+        Swal.fire('Success!', 'Group created successfully!', 'success');
+        form.reset();
+      }
+    } catch (error) {
+      Swal.fire('Error!', 'Something went wrong!', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Create a New Group</h2>
@@ -84,4 +125,6 @@ export default function CreateGroup() {
       </form>
     </div>
   );
-}
+};
+
+export default CreateGroup;
