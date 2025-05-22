@@ -1,73 +1,84 @@
-import { Link } from 'react-router';
-// import { useContext } from 'react';
-// import { AuthContext } from '../context/AuthProvider';
-
+import { Link, NavLink } from 'react-router';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthProvider';
+import { Tooltip } from 'react-tooltip';
+import logo from '../assets/logo.png';
 const Navbar = () => {
-  // const { user, logout } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
-  // const handleLogout = () => {
-  //   logout().then(() => {
-  //     // optional toast
-  //   });
-  // };
+  const handleLogout = () => {
+    logOut().then().catch(console.error);
+  };
 
-  // const navItems = (
-  //   <>
-  //     <li>
-  //       <Link to="/">Home</Link>
-  //     </li>
-  //     <li>
-  //       <Link to="/groups">All Groups</Link>
-  //     </li>
-  //     {user && (
-  //       <li>
-  //         <Link to="/createGroup">Create Group</Link>
-  //       </li>
-  //     )}
-  //     {user && (
-  //       <li>
-  //         <Link to="/myGroups">My Groups</Link>
-  //       </li>
-  //     )}
-  //   </>
-  // );
+  const navItems = (
+    <>
+      <NavLink to="/" className="btn btn-ghost">
+        Home
+      </NavLink>
+      <NavLink to="/groups" className="btn btn-ghost">
+        All Groups
+      </NavLink>
+      {user && (
+        <>
+          <NavLink to="/createGroup" className="btn btn-ghost">
+            Create Group
+          </NavLink>
+          <NavLink to="/myGroups" className="btn btn-ghost">
+            My Groups
+          </NavLink>
+        </>
+      )}
+    </>
+  );
 
   return (
-    <div className="navbar bg-base-100 shadow-md">
-      <div className="navbar-start">
-        <Link className="btn btn-ghost text-xl" to="/">
-          HobbyHub
-        </Link>
-      </div>
-
-      <div className="flex gap-3">
-        <li>Home</li>
-        <li> category</li>
-        <li> product</li>
-        <li>contact</li>
-      </div>
-      {/* <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
-      </div>
-      <div className="navbar-end">
-        {user ? (
-          <div className="flex items-center gap-2">
-            <div
-              className="tooltip tooltip-bottom"
-              data-tip={user.displayName || user.email}
-            >
-              <img src={user.photoURL} className="w-10 h-10 rounded-full" />
-            </div>
-            <button className="btn btn-sm btn-error" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        ) : (
-          <Link className="btn btn-sm btn-primary" to="/login">
-            Login
+    <div className="bg-base-100 shadow-md">
+      <div className="navbar max-w-7xl mx-auto px-4">
+        {/* Logo */}
+        <div className="flex-1">
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src={logo}
+              alt="HobbyHub Logo"
+              className="h-10 w-10 rounded-full"
+            />
+            <span className="text-xl font-bold hidden sm:inline">HobbyHub</span>
           </Link>
-        )}
-      </div> */}
+        </div>
+
+        {/* Navigation */}
+        <div className="flex gap-4">
+          <div className="hidden md:flex gap-2">{navItems}</div>
+
+          {/* User Section */}
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                className="avatar tooltip"
+                data-tooltip-id="user-tooltip"
+              >
+                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
+                  <img src={user.photoURL} alt="User Avatar" />
+                </div>
+              </div>
+              <Tooltip id="user-tooltip">{user.displayName}</Tooltip>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52"
+              >
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <NavLink to="/login" className="btn btn-primary">
+              Login
+            </NavLink>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
