@@ -57,7 +57,7 @@ const UpdateGroup = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/groups/${id}`, {
+    fetch(`http://localhost:3000/groups/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -84,13 +84,14 @@ const UpdateGroup = () => {
       <h2 className="text-3xl font-bold mb-6">Update Group</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-semibold mb-1">Group Name</label>
+          <label className="font-semibold mb-1">Group Name</label>
           <input
             type="text"
             name="groupName"
             value={groupData.groupName}
-            readOnly
-            className="input input-bordered w-full bg-gray-200 cursor-not-allowed"
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full"
           />
         </div>
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Loader2 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
+
 const MyGroup = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,13 +17,6 @@ const MyGroup = () => {
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[50vh]">
-        <Loader2 className="animate-spin text-indigo-600 w-10 h-10" />
-      </div>
-    );
-  }
   const handleDelete = id => {
     Swal.fire({
       title: 'Are you sure?',
@@ -49,6 +42,14 @@ const MyGroup = () => {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Loader2 className="animate-spin text-indigo-600 w-10 h-10" />
+      </div>
+    );
+  }
+
   if (groups.length === 0) {
     return (
       <div className="text-center text-gray-500 py-10">
@@ -69,47 +70,50 @@ const MyGroup = () => {
         My Groups
       </h1>
 
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className="table w-full">
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto rounded-lg shadow">
+        <table className="w-full text-left border-collapse">
           <thead className="bg-indigo-100 text-indigo-700">
             <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Start Date</th>
-              <th>Actions</th>
+              <th className="p-3">Image</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Description</th>
+              <th className="p-3">Category</th>
+              <th className="p-3">Start Date</th>
+              <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {groups.map(group => (
               <tr key={group._id} className="hover:bg-gray-50">
-                <td>
+                <td className="p-3">
                   <img
                     src={group.image}
-                    alt={group.name}
+                    alt={group.groupName}
                     className="w-16 h-16 object-cover rounded"
                   />
                 </td>
-                <td className="font-semibold">{group.name}</td>
-                <td className="line-clamp-2 text-gray-600">
+                <td className="p-3 font-semibold">{group.groupName}</td>
+                <td className="p-3 text-gray-600 line-clamp-2">
                   {group.description}
                 </td>
-                <td>{group.category}</td>
-                <td>{new Date(group.startDate).toLocaleDateString()}</td>
-                <td>
+                <td className="p-3">{group.category}</td>
+                <td className="p-3">
+                  {new Date(group.startDate).toLocaleDateString()}
+                </td>
+                <td className="p-3">
                   <div className="flex gap-2">
                     <Link
                       to={`/group/${group._id}`}
                       className="btn btn-sm bg-indigo-500 text-white hover:bg-indigo-600"
                     >
-                      View
+                      Info
                     </Link>
                     <Link
-                      to={`/update-group/${group._id}`}
+                      to={`/updateGroup/${group._id}`}
                       className="btn btn-sm bg-yellow-500 text-white hover:bg-yellow-600"
                     >
-                      Edit
+                      Update
                     </Link>
                     <button
                       onClick={() => handleDelete(group._id)}
@@ -123,6 +127,54 @@ const MyGroup = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-4">
+        {groups.map(group => (
+          <div
+            key={group._id}
+            className="bg-white p-4 rounded-lg shadow space-y-2"
+          >
+            <div className="flex gap-4 items-center">
+              <img
+                src={group.image}
+                alt={group.name}
+                className="w-20 h-20 object-cover rounded"
+              />
+              <div>
+                <h2 className="text-lg font-semibold text-indigo-700">
+                  {group.groupName}
+                </h2>
+                <p className="text-sm text-gray-600">{group.category}</p>
+              </div>
+            </div>
+            <p className="text-gray-700 text-sm">{group.description}</p>
+            <p className="text-sm text-gray-500">
+              Start Date: {new Date(group.startDate).toLocaleDateString()}
+            </p>
+            <div className="flex gap-2 justify-end">
+              <Link
+                to={`/group/${group._id}`}
+                className="btn btn-xs bg-indigo-500 text-white hover:bg-indigo-600"
+              >
+                Info
+              </Link>
+              <Link
+                to={`/updateGroup/${group._id}`}
+                className="btn btn-xs bg-yellow-500 text-white hover:bg-yellow-600"
+              >
+                Update
+              </Link>
+              <button
+                onClick={() => handleDelete(group._id)}
+                className="btn btn-xs bg-red-500 text-white hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

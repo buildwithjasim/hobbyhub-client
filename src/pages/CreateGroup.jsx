@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const CreateGroup = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleCreateGroup = e => {
     e.preventDefault();
