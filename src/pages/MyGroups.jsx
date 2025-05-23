@@ -1,37 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Loader2 } from 'lucide-react';
-
+import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
-
 const MyGroup = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const handleDelete = id => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won’t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then(result => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/groups/${id}`, {
-          method: 'DELETE',
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.deletedCount > 0) {
-              Swal.fire('Deleted!', 'Your group has been deleted.', 'success');
-              setGroups(groups.filter(group => group._id !== id));
-            }
-          });
-      }
-    });
-  };
 
   useEffect(() => {
     fetch('http://localhost:3000/groups')
@@ -50,6 +24,30 @@ const MyGroup = () => {
       </div>
     );
   }
+  const handleDelete = id => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won’t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/groups/${id}`, {
+          method: 'DELETE',
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.deletedCount > 0) {
+              Swal.fire('Deleted!', 'Your group has been deleted.', 'success');
+              setGroups(prev => prev.filter(group => group._id !== id));
+            }
+          });
+      }
+    });
+  };
 
   if (groups.length === 0) {
     return (
@@ -71,48 +69,60 @@ const MyGroup = () => {
         My Groups
       </h1>
 
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {groups.map((group, index) => (
-          <motion.div
-            key={group._id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl duration-300"
-          >
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                {group.name}
-              </h2>
-              <p className="text-gray-600 mb-4 line-clamp-2">
-                {group.description}
-              </p>
-
-              <div className="flex justify-between items-center">
-                <Link
-                  to={`/group/${group._id}`}
-                  className="text-indigo-600 hover:underline"
-                >
-                  View
-                </Link>
-                <div className="flex gap-3">
-                  <Link
-                    to={`/update-group/${group._id}`}
-                    className="px-3 py-1 rounded-md bg-indigo-500 text-white text-sm hover:bg-indigo-600"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(group._id)}
-                    className="px-3 py-1 rounded-md bg-red-500 text-white text-sm hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+      <div className="overflow-x-auto rounded-lg shadow">
+        <table className="table w-full">
+          <thead className="bg-indigo-100 text-indigo-700">
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Start Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {groups.map(group => (
+              <tr key={group._id} className="hover:bg-gray-50">
+                <td>
+                  <img
+                    src={group.image}
+                    alt={group.name}
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                </td>
+                <td className="font-semibold">{group.name}</td>
+                <td className="line-clamp-2 text-gray-600">
+                  {group.description}
+                </td>
+                <td>{group.category}</td>
+                <td>{new Date(group.startDate).toLocaleDateString()}</td>
+                <td>
+                  <div className="flex gap-2">
+                    <Link
+                      to={`/group/${group._id}`}
+                      className="btn btn-sm bg-indigo-500 text-white hover:bg-indigo-600"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      to={`/update-group/${group._id}`}
+                      className="btn btn-sm bg-yellow-500 text-white hover:bg-yellow-600"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(group._id)}
+                      className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
