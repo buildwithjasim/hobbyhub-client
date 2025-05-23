@@ -5,7 +5,7 @@ const AllGroups = () => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/groups')
+    fetch('http://localhost:3000/groups')
       .then(res => res.json())
       .then(data => setGroups(data));
   }, []);
@@ -16,13 +16,12 @@ const AllGroups = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {groups.map(group => (
           <div key={group._id} className="card bg-base-100 shadow-xl">
-            <figure>
-              <img
-                src={group.imageUrl}
-                alt={group.groupName}
-                className="h-56 w-full object-cover"
-              />
-            </figure>
+            <img
+              src={group.image}
+              alt={group.groupName}
+              className="h-56 w-full object-cover"
+            />
+
             <div className="card-body">
               <h2 className="card-title">{group.groupName}</h2>
               <p>

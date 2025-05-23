@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../providers/AuthProvider';
+import { useParams, useNavigate } from 'react-router';
+import { AuthContext } from '../context/AuthProvider';
 import Swal from 'sweetalert2';
 
 const hobbyCategories = [
@@ -32,7 +32,7 @@ const UpdateGroup = () => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/groups/${id}`)
+    fetch(`http://localhost:3000/groups/${id}`)
       .then(res => res.json())
       .then(data => {
         setGroupData({

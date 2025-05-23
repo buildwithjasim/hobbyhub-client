@@ -1,40 +1,18 @@
 import { useParams } from 'react-router';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
-import Swal from 'sweetalert2';
 
 const GroupDetails = () => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/groups/${id}`)
+    fetch(`http://localhost:3000/groups/${id}`)
       .then(res => res.json())
       .then(data => setGroup(data));
   }, [id]);
-
-  const handleJoin = () => {
-    const joinData = {
-      groupId: group._id,
-      userEmail: user.email,
-      userName: user.displayName,
-    };
-
-    fetch('http://localhost:5000/joinGroup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(joinData),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.insertedId) {
-          Swal.fire('Joined!', "You've joined the group!", 'success');
-        } else {
-          Swal.fire('Oops!', data.message || 'Could not join.', 'error');
-        }
-      });
-  };
 
   if (!group) {
     return <div className="text-center mt-10">Loading...</div>;
@@ -45,7 +23,7 @@ const GroupDetails = () => {
   return (
     <div className="max-w-3xl mx-auto p-6 bg-base-100 shadow-xl mt-10">
       <img
-        src={group.imageUrl}
+        src={group.image}
         alt={group.groupName}
         className="w-full h-60 object-cover rounded-lg mb-6"
       />
@@ -70,9 +48,7 @@ const GroupDetails = () => {
           This group is no longer active.
         </p>
       ) : (
-        <button onClick={handleJoin} className="btn btn-primary mt-4">
-          Join Group
-        </button>
+        <button className="btn btn-primary mt-4">Join Group</button>
       )}
     </div>
   );
