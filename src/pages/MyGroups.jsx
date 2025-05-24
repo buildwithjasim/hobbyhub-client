@@ -8,7 +8,7 @@ const MyGroup = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/groups')
+    fetch('https://hobbyhub-server-eight.vercel.app/groups')
       .then(res => res.json())
       .then(data => {
         setGroups(data);
@@ -28,7 +28,7 @@ const MyGroup = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/groups/${id}`, {
+        fetch(`https://hobbyhub-server-eight.vercel.app/groups/${id}`, {
           method: 'DELETE',
         })
           .then(res => res.json())

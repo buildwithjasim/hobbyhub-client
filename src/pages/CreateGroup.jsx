@@ -34,7 +34,7 @@ const CreateGroup = () => {
       userEmail: user.email,
     };
 
-    fetch('http://localhost:3000/groups', {
+    fetch('https://hobbyhub-server-eight.vercel.app/groups', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
