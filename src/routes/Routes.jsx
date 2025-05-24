@@ -9,13 +9,18 @@ import CreateGroup from '../pages/CreateGroup';
 import GroupDetails from '../pages/GroupDetails';
 import MyGroups from '../pages/MyGroups';
 import UpdateGroup from '../pages/UpdateGroup';
+import ErrorPage from '../pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     Component: MainLayout,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
-      { path: '/', element: <Home /> },
+      {
+        path: '/',
+        element: <Home />,
+      },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
       { path: '/groups', element: <AllGroups /> },

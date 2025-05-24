@@ -5,7 +5,7 @@ import WhyChoose from '../components/WhyChoose';
 
 const Home = () => {
   return (
-    <div className="container mx-auto px-4 mt-20 space-y-20">
+    <div className="container mx-auto mt-20 space-y-20">
       <Banner />
       <FeaturedGroups />
       <HobbyHubWork></HobbyHubWork>

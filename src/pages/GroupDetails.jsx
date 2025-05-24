@@ -1,12 +1,13 @@
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
+import Swal from 'sweetalert2';
 
 const GroupDetails = () => {
   const { id } = useParams();
   const [group, setGroup] = useState(null);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/groups/${id}`)
@@ -15,13 +16,23 @@ const GroupDetails = () => {
   }, [id]);
 
   if (!group) {
-    return <div className="text-center mt-10">Loading...</div>;
+    return (
+      <div className="text-center py-20 text-gray-500">Group not found.</div>
+    );
   }
 
   const startDatePassed = new Date(group.startDate) < new Date();
 
+  const handleJoin = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'successfully joined!',
+      text: 'You are successfully joined.',
+    });
+    navigate('/groups');
+  };
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-base-100 shadow-xl mt-10">
+    <div className="max-w-3xl mx-auto p-6 bg-base-200 shadow-xl m-10 rounded-2xl">
       <img
         src={group.image}
         alt={group.groupName}
@@ -48,7 +59,9 @@ const GroupDetails = () => {
           This group is no longer active.
         </p>
       ) : (
-        <button className="btn btn-primary mt-4">Join Group</button>
+        <button onClick={handleJoin} className="btn btn-primary mt-4">
+          Join Group
+        </button>
       )}
     </div>
   );

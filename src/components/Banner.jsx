@@ -1,5 +1,6 @@
 import { Typewriter } from 'react-simple-typewriter';
 import { Fade } from 'react-awesome-reveal';
+import { Link } from 'react-router';
 
 const Banner = () => {
   return (
@@ -36,7 +37,9 @@ const Banner = () => {
             Join hobby-based groups, make friends, and grow your passion at
             HobbyHub.
           </p>
-          <button className="btn btn-warning font-bold">Explore Groups</button>
+          <Link to="/groups" className="btn btn-warning font-bold">
+            Explore Groups
+          </Link>
         </Fade>
       </div>
     </div>

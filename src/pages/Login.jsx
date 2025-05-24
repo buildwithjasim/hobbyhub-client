@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 p-6 border shadow-lg rounded-lg">
+    <div className="max-w-xl mx-auto p-6 bg-base-200 border shadow-xl m-10 rounded-2xl">
       <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
       <form onSubmit={handleLogin} className="space-y-4">
         <input
@@ -59,7 +59,10 @@ const Login = () => {
         </button>
       </form>
       <div className="mt-4 flex flex-col items-center">
-        <button onClick={handleGoogleLogin} className="btn btn-outline w-full">
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-outline font-bold w-full text-blue-700"
+        >
           Login with Google
         </button>
         <p className="mt-3">

@@ -1,13 +1,22 @@
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import { Tooltip } from 'react-tooltip';
 import logo from '../assets/logo.png';
+import { toast } from 'react-toastify';
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logOut().then().catch(console.error);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Logged out successfully!');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      toast.error('Logout failed!');
+    }
   };
 
   const navItems = (
@@ -32,22 +41,63 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-100 shadow-md">
-      <div className="navbar max-w-7xl mx-auto px-4">
+    <div className="bg-base-200 shadow-md">
+      <div className="navbar w-full mx-auto flex justify-around">
         {/* Logo */}
-        <div className="flex-1">
-          <Link to="/" className="flex items-center gap-2">
+
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {' '}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{' '}
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <NavLink to="/" className="btn btn-ghost">
+                Home
+              </NavLink>
+              <NavLink to="/groups" className="btn btn-ghost">
+                All Groups
+              </NavLink>
+              {user && (
+                <>
+                  <NavLink to="/createGroup" className="btn btn-ghost">
+                    Create Group
+                  </NavLink>
+                  <NavLink to="/myGroups" className="btn btn-ghost">
+                    My Groups
+                  </NavLink>
+                </>
+              )}
+            </ul>
+          </div>
+          <div className="flex gap-3">
             <img
               src={logo}
               alt="HobbyHub Logo"
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full "
             />
-            <span className="text-xl font-bold hidden sm:inline">HobbyHub</span>
-          </Link>
+            <a className="btn btn-ghost text-xl font-bold">HobbyHub</a>
+          </div>
         </div>
 
         {/* Navigation */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 ">
           <div className="hidden md:flex gap-2">{navItems}</div>
 
           {/* User Section */}

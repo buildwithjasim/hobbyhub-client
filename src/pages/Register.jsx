@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import { useNavigate, Link } from 'react-router';
 import { toast } from 'react-toastify';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
   const { register } = useContext(AuthContext);
@@ -32,8 +33,8 @@ const Register = () => {
     setError('');
 
     try {
-      const result = await register(email, password);
-      await result.user.updateProfile({ displayName: name, photoURL });
+      const result = await register(email, password, name, photoURL);
+      await updateProfile(result.user, { displayName: name, photoURL });
       toast.success('Registration successful!');
       navigate('/');
     } catch (err) {
@@ -43,7 +44,7 @@ const Register = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 p-6 border shadow-lg rounded-lg">
+    <div className="max-w-xl mx-auto p-6 bg-base-200 border shadow-xl m-10 rounded-2xl">
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
       <form onSubmit={handleRegister} className="space-y-4">
         <input

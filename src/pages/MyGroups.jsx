@@ -53,10 +53,12 @@ const MyGroup = () => {
   if (groups.length === 0) {
     return (
       <div className="text-center text-gray-500 py-10">
-        <p>No groups created yet.</p>
+        <p className="text-3xl text-red-500 font-semibold">
+          No groups created yet.
+        </p>
         <Link
-          to="/create-group"
-          className="text-indigo-600 underline mt-4 block"
+          to="/createGroup"
+          className="text-indigo-600 underline mt-4 text-2xl block"
         >
           Create One
         </Link>
@@ -65,15 +67,13 @@ const MyGroup = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-700">
-        My Groups
-      </h1>
+    <div className="max-w-8xl mx-auto p-6 bg-base-200 shadow-xl m-10 rounded-2xl">
+      <h1 className="text-3xl font-bold mb-6 text-center ">My Groups</h1>
 
       {/* Desktop Table */}
-      <div className="hidden md:block overflow-x-auto rounded-lg shadow">
+      <div className="hidden  md:block overflow-x-auto rounded-lg shadow">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-indigo-100 text-indigo-700">
+          <thead className="bg-indigo-100">
             <tr>
               <th className="p-3">Image</th>
               <th className="p-3">Name</th>
@@ -93,7 +93,7 @@ const MyGroup = () => {
                     className="w-16 h-16 object-cover rounded"
                   />
                 </td>
-                <td className="p-3 font-semibold">{group.groupName}</td>
+                <td className="p-3 font-bold">{group.groupName}</td>
                 <td className="p-3 text-gray-600 line-clamp-2">
                   {group.description}
                 </td>
@@ -103,12 +103,6 @@ const MyGroup = () => {
                 </td>
                 <td className="p-3">
                   <div className="flex gap-2">
-                    <Link
-                      to={`/group/${group._id}`}
-                      className="btn btn-sm bg-indigo-500 text-white hover:bg-indigo-600"
-                    >
-                      Info
-                    </Link>
                     <Link
                       to={`/updateGroup/${group._id}`}
                       className="btn btn-sm bg-yellow-500 text-white hover:bg-yellow-600"

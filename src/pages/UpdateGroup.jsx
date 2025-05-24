@@ -80,7 +80,7 @@ const UpdateGroup = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-3xl mx-auto p-6 bg-base-200 shadow-xl m-10 rounded-2xl">
       <h2 className="text-3xl font-bold mb-6">Update Group</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
