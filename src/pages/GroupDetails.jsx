@@ -10,7 +10,7 @@ const GroupDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://hobbyhub-server-eight.vercel.app/groups/${id}`)
+    fetch(`http://localhost:3000/groups/${id}`)
       .then(res => res.json())
       .then(data => setGroup(data));
   }, [id]);

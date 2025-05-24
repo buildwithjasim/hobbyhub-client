@@ -32,7 +32,7 @@ const UpdateGroup = () => {
   });
 
   useEffect(() => {
-    fetch(`https://hobbyhub-server-eight.vercel.app/groups/${id}`)
+    fetch(`http://localhost:3000/groups/${id}`)
       .then(res => res.json())
       .then(data => {
         setGroupData({
@@ -57,7 +57,7 @@ const UpdateGroup = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    fetch(`https://hobbyhub-server-eight.vercel.app/groups/${id}`, {
+    fetch(`http://localhost:3000/groups/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
