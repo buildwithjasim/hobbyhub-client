@@ -12,7 +12,7 @@
 
 ## 📸 Preview
 
-![Banner Preview](https://your-banner-image-link.com)
+![Banner Preview](https://i.ibb.co.com/D03Y9VS/Screenshot-9.jpg)
 
 ---
 
